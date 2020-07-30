@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class SessionServiceProvider
- * @package AidynMakhataev\Tarantool\Session
+ * Class SessionServiceProvider.
  */
 final class SessionServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,6 @@ final class SessionServiceProvider extends ServiceProvider
                 __DIR__.'/../config/tarantool-session.php' => $this->app->configPath('tarantool-session.php'),
             ], ['tarantool-session', 'tarantool-session-config']);
         }
-
 
         Session::extend('tarantool', static function ($app) {
             $options = $app['config']['tarantool-session'];
