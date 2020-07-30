@@ -8,21 +8,20 @@ use Tarantool\Client\Client;
 use Tarantool\Client\Schema\Criteria;
 
 /**
- * Class TarantoolSessionHandler
- * @package AidynMakhataev\Tarantool\Session
+ * Class TarantoolSessionHandler.
  */
 final class TarantoolSessionHandler implements \SessionHandlerInterface
 {
-    /** @var Client  */
+    /** @var Client */
     private $client;
 
-    /** @var \Tarantool\Client\Schema\Space  */
+    /** @var \Tarantool\Client\Schema\Space */
     private $space;
 
     /** @var string */
     private $sessionKeyPrefix;
 
-    /** @var string  */
+    /** @var string */
     private $gcFunctionName = 'php_sessions.gc';
 
     public function __construct(string $host, string $user, string $password, string $space)
@@ -30,7 +29,7 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
         $this->client = Client::fromOptions([
             'uri'       =>  $host,
             'username'  =>  $user,
-            'password'  =>  $password
+            'password'  =>  $password,
         ]);
 
         $this->space = $this->client->getSpace($space);
@@ -61,7 +60,7 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
 
     public function open($save_path, $name): bool
     {
-        $this->sessionKeyPrefix = $save_path . '^' . $name;
+        $this->sessionKeyPrefix = $save_path.'^'.$name;
 
         return true;
     }
