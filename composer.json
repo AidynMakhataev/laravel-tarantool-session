@@ -1,0 +1,22 @@
+{
+  "name": "aidynmakhataev/laravel-tarantool-session",
+  "description": "A Tarantool session driver for Laravel",
+  "keywords": ["laravel","session","tarantool","driver"],
+  "authors": [
+    {
+      "name": "Aidyn Makhataev",
+      "homepage": "https://github.com/AidynMakhataev"
+    }
+  ],
+  "license" : "MIT",
+  "require": {
+    "php": ">=7.2",
+    "tarantool/client": "^0.8.0",
+    "illuminate/session": "~5.0|~6.0|~7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AidynMakhataev\\Tarantool\\Session\\": "src/"
+    }
+  }
+}
