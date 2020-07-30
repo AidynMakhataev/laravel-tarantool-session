@@ -37,4 +37,4 @@ TARANTOOL_SESSION_SPACE=sessions
 
 ## License
 
-license. Please see the [license file](license.md) for more information.
+MIT. Please see the [license file](license.md) for more information.
