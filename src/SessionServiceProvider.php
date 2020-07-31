@@ -24,7 +24,7 @@ final class SessionServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/tarantool-session.php' => $this->app->configPath('tarantool-session.php'),
-            ], ['tarantool-session', 'tarantool-session-config']);
+            ], 'tarantool-session-config');
         }
 
         Session::extend('tarantool', static function ($app) {
