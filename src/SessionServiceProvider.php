@@ -6,6 +6,8 @@ namespace AidynMakhataev\Tarantool\Session;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
+use Tarantool\Client\Client;
 
 /**
  * Class SessionServiceProvider.
@@ -27,15 +29,20 @@ final class SessionServiceProvider extends ServiceProvider
             ], 'tarantool-session-config');
         }
 
-        Session::extend('tarantool', static function ($app) {
+        $this->app->singleton(TarantoolSessionHandler::class, static function (Application $app) {
             $options = $app['config']['tarantool-session'];
 
-            return new TarantoolSessionHandler(
-                $options['host'],
-                $options['user'],
-                $options['password'],
-                $options['space']
-            );
+            $client = Client::fromOptions([
+                'uri'       =>  $options['host'],
+                'username'  =>  $options['user'],
+                'password'  =>  $options['password'],
+            ]);
+
+            return new TarantoolSessionHandler($client, $client->getSpace($options['space']));
+        });
+
+        Session::extend('tarantool', static function (Application $app) {
+            return $app->make(TarantoolSessionHandler::class);
         });
     }
 }

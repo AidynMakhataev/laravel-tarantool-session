@@ -6,13 +6,14 @@ namespace AidynMakhataev\Tarantool\Session;
 
 use Tarantool\Client\Client;
 use Tarantool\Client\Schema\Criteria;
+use Tarantool\Client\Schema\Space;
 
 /**
  * Class TarantoolSessionHandler.
  */
 final class TarantoolSessionHandler implements \SessionHandlerInterface
 {
-    /** @var Client */
+    /** @var \Tarantool\Client\Client */
     private $client;
 
     /** @var \Tarantool\Client\Schema\Space */
@@ -24,15 +25,11 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
     /** @var string */
     private $gcFunctionName = 'php_sessions.gc';
 
-    public function __construct(string $host, string $user, string $password, string $space)
+    public function __construct(Client $client, Space $space)
     {
-        $this->client = Client::fromOptions([
-            'uri'       =>  $host,
-            'username'  =>  $user,
-            'password'  =>  $password,
-        ]);
+        $this->client = $client;
 
-        $this->space = $this->client->getSpace($space);
+        $this->space = $space;
 
         session_set_save_handler($this);
     }
