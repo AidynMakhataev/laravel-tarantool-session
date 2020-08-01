@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AidynMakhataev\Tarantool\Session;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Foundation\Application;
 use Tarantool\Client\Client;
 
 /**
