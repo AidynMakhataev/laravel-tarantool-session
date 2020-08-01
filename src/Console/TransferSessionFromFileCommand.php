@@ -8,8 +8,7 @@ use AidynMakhataev\Tarantool\Session\TarantoolSessionHandler;
 use Illuminate\Console\Command;
 
 /**
- * Class TransferSessionFromFileCommand
- * @package AidynMakhataev\Tarantool\Session\Console
+ * Class TransferSessionFromFileCommand.
  */
 final class TransferSessionFromFileCommand extends Command
 {
@@ -31,7 +30,7 @@ final class TransferSessionFromFileCommand extends Command
     private $sessionHandler;
 
     private static $ignoreFileList = [
-        '.gitignore'
+        '.gitignore',
     ];
 
     /**
@@ -55,7 +54,7 @@ final class TransferSessionFromFileCommand extends Command
         $directory = new \DirectoryIterator(storage_path('framework/sessions'));
 
         foreach ($directory as $file) {
-            if ($file->isFile() && !in_array($file->getFilename(), self::$ignoreFileList)) {
+            if ($file->isFile() && ! in_array($file->getFilename(), self::$ignoreFileList)) {
                 $key = $file->getFilename();
 
                 $value = file_get_contents($file->getPathname());
