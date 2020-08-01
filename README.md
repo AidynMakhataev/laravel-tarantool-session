@@ -46,6 +46,28 @@ TARANTOOL_SESSION_PASSWORD=password
 TARANTOOL_SESSION_SPACE=sessions
 ```
 
+## Transfer session from another storage
+
+You can easily transfer your sessions with following artisan commands
+
+### File Driver
+
+```bash
+php artisan tarantool-session:transfer-file
+```
+
+### Redis Driver
+
+Currently not supported
+
+### Database Driver
+
+Currently not supported
+
+### Memcached Driver
+
+Currently not supported
+
 ## License
 
 MIT. Please see the [license file](LICENSE) for more information.
