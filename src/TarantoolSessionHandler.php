@@ -9,7 +9,8 @@ use Tarantool\Client\Schema\Criteria;
 use Tarantool\Client\Schema\Space;
 
 /**
- * Class TarantoolSessionHandler.
+ * Class TarantoolSessionHandler
+ * @package AidynMakhataev\Tarantool\Session
  */
 final class TarantoolSessionHandler implements \SessionHandlerInterface
 {

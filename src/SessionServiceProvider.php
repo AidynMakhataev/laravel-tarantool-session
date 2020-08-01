@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace AidynMakhataev\Tarantool\Session;
 
+use AidynMakhataev\Tarantool\Session\Console\TransferSessionFromFileCommand;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Tarantool\Client\Client;
 
 /**
- * Class SessionServiceProvider.
+ * Class SessionServiceProvider
+ * @package AidynMakhataev\Tarantool\Session
  */
 final class SessionServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,10 @@ final class SessionServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/tarantool-session.php', 'tarantool-session'
         );
+
+        $this->commands([
+            TransferSessionFromFileCommand::class
+        ]);
     }
 
     public function boot(): void
