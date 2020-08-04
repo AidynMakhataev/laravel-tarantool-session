@@ -6,7 +6,6 @@ namespace AidynMakhataev\Tarantool\Session;
 
 use Tarantool\Client\Client;
 use Tarantool\Client\Schema\Criteria;
-use Tarantool\Client\Schema\Space;
 
 /**
  * Class TarantoolSessionHandler.
@@ -15,6 +14,9 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
 {
     /** @var \Tarantool\Client\Client */
     private $client;
+
+    /** @var string */
+    private $spaceName;
 
     /** @var \Tarantool\Client\Schema\Space */
     private $space;
@@ -25,11 +27,13 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
     /** @var string */
     private $gcFunctionName = 'php_sessions.gc';
 
-    public function __construct(Client $client, Space $space)
+    public function __construct(Client $client, string $spaceName)
     {
         $this->client = $client;
 
-        $this->space = $space;
+        $this->spaceName = $spaceName;
+
+        $this->space = $this->client->getSpace($this->spaceName);
 
         session_set_save_handler($this);
     }
@@ -50,7 +54,7 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
 
     public function gc($maxlifetime): bool
     {
-        $this->client->call($this->gcFunctionName, $this->space, $maxlifetime);
+        $this->client->call($this->gcFunctionName, $this->spaceName, $maxlifetime);
 
         return true;
     }

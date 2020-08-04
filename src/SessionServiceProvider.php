@@ -43,7 +43,7 @@ final class SessionServiceProvider extends ServiceProvider
                 'password'  =>  $options['password'],
             ]);
 
-            return new TarantoolSessionHandler($client, $client->getSpace($options['space']));
+            return new TarantoolSessionHandler($client, $options['space']);
         });
 
         Session::extend('tarantool', static function (Application $app) {
