@@ -11,8 +11,7 @@ use Illuminate\Support\ServiceProvider;
 use Tarantool\Client\Client;
 
 /**
- * Class SessionServiceProvider
- * @package AidynMakhataev\Tarantool\Session
+ * Class SessionServiceProvider.
  */
 final class SessionServiceProvider extends ServiceProvider
 {
@@ -23,7 +22,7 @@ final class SessionServiceProvider extends ServiceProvider
         );
 
         $this->commands([
-            TransferSessionFromFileCommand::class
+            TransferSessionFromFileCommand::class,
         ]);
     }
 

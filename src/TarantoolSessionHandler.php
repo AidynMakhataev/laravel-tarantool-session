@@ -8,8 +8,7 @@ use Tarantool\Client\Client;
 use Tarantool\Client\Schema\Criteria;
 
 /**
- * Class TarantoolSessionHandler
- * @package AidynMakhataev\Tarantool\Session
+ * Class TarantoolSessionHandler.
  */
 final class TarantoolSessionHandler implements \SessionHandlerInterface
 {
