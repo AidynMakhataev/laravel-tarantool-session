@@ -23,9 +23,11 @@ final class SessionServiceProvider extends ServiceProvider
             __DIR__.'/../config/tarantool-session.php', 'tarantool-session'
         );
 
-        $this->commands([
-            TransferSessionFromFileCommand::class,
-        ]);
+        if ($this->isCurrentSessionDriverTarantool()) {
+            $this->commands([
+                TransferSessionFromFileCommand::class,
+            ]);
+        }
     }
 
     public function boot(): void
@@ -36,7 +38,7 @@ final class SessionServiceProvider extends ServiceProvider
             ], 'tarantool-session-config');
         }
 
-        if ($this->app['config']['session']['driver'] === self::DRIVER_NAME) {
+        if ($this->isCurrentSessionDriverTarantool()) {
             $this->app->singleton(TarantoolSessionHandler::class, static function (Application $app) {
                 $options = $app['config']['tarantool-session'];
 
@@ -53,5 +55,13 @@ final class SessionServiceProvider extends ServiceProvider
                 return $app->make(TarantoolSessionHandler::class);
             });
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrentSessionDriverTarantool(): bool
+    {
+        return $this->app['config']['session']['driver'] === self::DRIVER_NAME;
     }
 }
