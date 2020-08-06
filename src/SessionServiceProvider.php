@@ -15,7 +15,7 @@ use Tarantool\Client\Client;
  */
 final class SessionServiceProvider extends ServiceProvider
 {
-    public const DRIVER_NAME =  'tarantool';
+    public const DRIVER_NAME = 'tarantool';
 
     public function register(): void
     {
