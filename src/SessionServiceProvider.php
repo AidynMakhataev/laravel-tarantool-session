@@ -15,6 +15,8 @@ use Tarantool\Client\Client;
  */
 final class SessionServiceProvider extends ServiceProvider
 {
+    public const DRIVER_NAME =  'tarantool';
+
     public function register(): void
     {
         $this->mergeConfigFrom(
@@ -34,20 +36,22 @@ final class SessionServiceProvider extends ServiceProvider
             ], 'tarantool-session-config');
         }
 
-        $this->app->singleton(TarantoolSessionHandler::class, static function (Application $app) {
-            $options = $app['config']['tarantool-session'];
+        if ($this->app['config']['session']['driver'] === self::DRIVER_NAME) {
+            $this->app->singleton(TarantoolSessionHandler::class, static function (Application $app) {
+                $options = $app['config']['tarantool-session'];
 
-            $client = Client::fromOptions([
-                'uri'       =>  $options['host'],
-                'username'  =>  $options['user'],
-                'password'  =>  $options['password'],
-            ]);
+                $client = Client::fromOptions([
+                    'uri'       =>  $options['host'],
+                    'username'  =>  $options['user'],
+                    'password'  =>  $options['password'],
+                ]);
 
-            return new TarantoolSessionHandler($client, $options['space']);
-        });
+                return new TarantoolSessionHandler($client, $options['space']);
+            });
 
-        Session::extend('tarantool', static function (Application $app) {
-            return $app->make(TarantoolSessionHandler::class);
-        });
+            Session::extend(self::DRIVER_NAME, static function (Application $app) {
+                return $app->make(TarantoolSessionHandler::class);
+            });
+        }
     }
 }
