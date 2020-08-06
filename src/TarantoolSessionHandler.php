@@ -18,7 +18,7 @@ final class TarantoolSessionHandler implements \SessionHandlerInterface
     /** @var string */
     private $spaceName;
 
-    /** @var \Tarantool\Client\Schema\Space  */
+    /** @var \Tarantool\Client\Schema\Space */
     private $space;
 
     /** @var string */
